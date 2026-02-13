@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #d9a7ff, #ffb6c1);
+}
+
+/* Falling Hearts */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear infinite;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.top-text{
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.4);
+    margin-bottom: 10px;
+}
+
+h1 { color: #4a4a4a; }
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 10px;
+}
+
+.btn-main { background: #ff6b6b; color: white; }
+
+.hidden { display: none; }
+
+#no-btn { position: relative; z-index: 10; }
+
+.agreement-list {
+    text-align: left;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.emoji-display { font-size: 3rem; margin-bottom: 10px; }
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+
+<div id="valentine-screen">
+    <div class="emoji-display" id="main-emoji">💖</div>
+    <h1>Will you be my Valentine? 𝙿𝚞𝚛𝚟𝚒❤️🌹</h1>
+
+    <div id="button-group">
+        <button class="btn btn-main" onclick="handleYes()">YES</button>
+        <button class="btn" id="no-btn" onclick="handleNo()">NO</button>
+    </div>
+
+    <div id="success-msg" class="hidden">
+        <p><strong>😁 Mujhe pata tha tum YES hi karogi:</strong></p>
+
+        <ul class="agreement-list">
+            <li>💞 Hamesha saath rehna ka promise</li>
+            <li>🫣 Har smile ka permanent reason banna</li>
+            <li>☺️ Late night talks</li>
+        </ul>
+
+        <p><em>Pehle tu bestie bani… phir habit bani… aur ab lagta hai tu meri life ban gayi hai Or ha Vese aap bestie rhena chahte ho hamesha ya usse aage bhi?❤️</em></p>
+    </div>
+</div>
+
+</div>
+
+<script>
+
+let noCount = 0;
+
+/* Falling Hearts Generator */
+function createHeart() {
+
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️🌹";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+
+setInterval(createHeart, 300);
+
+function handleYes() {
+
+    document.getElementById('success-msg').classList.remove('hidden');
+
+    const group = document.getElementById('button-group');
+    group.style.display = "none";
+
+    confetti({
+        particleCount: 150,
+        spread: 90
+    });
+}
+
+function handleNo() {
+
+    noCount++;
+    const btn = document.getElementById('no-btn');
+    const emoji = document.getElementById('main-emoji');
+
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    btn.style.position = 'fixed';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
+
+    if (noCount === 1) emoji.innerText = '💔';
+    if (noCount >= 2) emoji.innerText = '🥹';
+}
+
+</script>
+
+</body>
+</html>
